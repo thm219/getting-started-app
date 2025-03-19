@@ -1,6 +1,11 @@
 pipeline {
     agent any
     
+    environment {
+        install = "docker exec -it node sh -c 'npm install --save-dev jest'"
+        test = "docker exec node sh -c 'npm test'"
+    }
+
     stages {
         stage('build') {
             steps {
@@ -16,8 +21,8 @@ pipeline {
             steps {
                 echo "test pipeline"
                 sh '''
-                  docker exec -it node sh -c "npm install --save-dev jest"
-                  docker exec node sh -c "npm test"
+                  ${install}
+                  ${test}
                 '''
             }
         }
