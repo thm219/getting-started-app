@@ -26,8 +26,10 @@ pipeline {
 
     post {
         always {
+            sh '''
             docker stop node
             docker rm node
+            '''
         }
     }
 }
