@@ -23,4 +23,11 @@ pipeline {
         }
 
     }
+
+    post {
+        always {
+            docker stop node
+            docker rm node
+        }
+    }
 }
