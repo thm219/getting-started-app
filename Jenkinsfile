@@ -29,7 +29,7 @@ pipeline {
 
          stage('webhook-tigger-test') {
             steps {
-                echo "Successfully webhook-tigger-testing...."
+                echo "Successfully webhook-tigger-testing again...."
             }
         }
 
