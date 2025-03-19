@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     environment {
-        install = "docker exec node sh -c 'npm install --save-dev jest'"
-        test = "docker exec node sh -c 'npm test'"
+        install = "docker exec node npm install --save-dev jest"
+        test = "docker exec node npm test"
     }
 
     stages {
