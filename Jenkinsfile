@@ -16,9 +16,7 @@ pipeline {
             steps {
                 echo "test pipeline"
                 sh '''
-                  cd /app
-                  npm install --save-dev jest
-                  docker exec -it node sh -c 'npm test jest'
+                  docker exec -it node sh -c 'npm install --save-dev jest && npm test'
                 '''
             }
         }
