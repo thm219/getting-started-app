@@ -4,6 +4,8 @@ pipeline {
     environment {
         install = "docker exec node npm install --save-dev jest"
         test = "docker exec node npm test"
+        docker_image = "thm007/getting-node-js"
+        container_name = "node"
     }
 
     stages {
@@ -29,8 +31,8 @@ pipeline {
             steps {
                 echo "build Pipeline"
                 sh '''
-                  docker build -t getting-start-app .
-                  docker run -d --name node getting-start-app
+                  docker build -t ${docker_image} .
+                  docker run -d --name ${container_name} ${docker_image}
                 '''
             }
         }
@@ -45,18 +47,25 @@ pipeline {
             }
         }
 
-        stage('push image') {
+        stage('Push') {
+            agent any
             steps {
-                echo "push image staging state......"
+                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                    sh '''
+                        docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}
+                        docker image tag ${docker_image}:v1
+                        dockr push ${docker_image}:v1
+                    '''
+                }
             }
         }
     }
-
+    
     post {
         always {
             sh '''
-            docker stop node
-            docker rm node
+            docker stop ${container_name}
+            docker rm ${container_name}
             '''
         }
     }
