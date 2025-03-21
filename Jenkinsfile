@@ -54,7 +54,7 @@ pipeline {
                     script {
                     // Log in to Docker Hub
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'docker build -t ${docker_image}:v1'
+                    sh 'docker image tag ${docker_image}:v1'
                     // Push the image
                     sh 'docker push ${docker_image}:v1'
                     }
