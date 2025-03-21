@@ -47,7 +47,7 @@ pipeline {
 
         stage('push image') {
             steps {
-                echo "push image staging"
+                echo "push image staging state......"
             }
         }
     }
