@@ -4,6 +4,7 @@ pipeline {
     environment {
         install = "docker exec node npm install --save-dev jest"
         test = "docker exec node npm test"
+        image = "getting-node-js"
         docker_image = "thm007/getting-node-js"
         container_name = "node"
     }
@@ -31,8 +32,8 @@ pipeline {
             steps {
                 echo "build Pipeline"
                 sh '''
-                  docker build -t ${docker_image} .
-                  docker run -d --name ${container_name} ${docker_image}
+                  docker build -t ${image} .
+                  docker run -d --name ${container_name} ${image}
                 '''
             }
         }
@@ -54,7 +55,7 @@ pipeline {
                     script {
                     // Log in to Docker Hub
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'docker image tag ${docker_image}:v1'
+                    sh 'docker image tag ${image} ${docker_image}:v1'
                     // Push the image
                     sh 'docker push ${docker_image}:v1'
                     }
