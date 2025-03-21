@@ -44,13 +44,6 @@ pipeline {
                 '''
             }
         }
-
-         stage('webhook-tigger-test') {
-            steps {
-                echo "Successfully webhook-tigger-testing ..."
-            }
-        }
-
     }
 
     post {
