@@ -7,7 +7,7 @@ pipeline {
         image = "getting-node-js"
         docker_image = "thm007/getting-node-js"
         container_name = "node"
-        version_image = "2"
+        version_image = "v2"
     }
 
     stages {
