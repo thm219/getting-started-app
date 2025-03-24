@@ -44,6 +44,8 @@ pipeline {
                 sh '''
                   ${install}
                   ${test}
+                  docker stop ${container_name}
+                  docker rm ${container_name}
                 '''
             }
         }
@@ -64,12 +66,32 @@ pipeline {
         }
     }
     
-    post {
+    /*post {
         always {
             sh '''
             docker stop ${container_name}
             docker rm ${container_name}
             '''
         }
+    }
+    */
+
+    post {
+        always {
+            emailext (
+                subject: "Pipeline Status: ${BUILD_NUMBER}",
+                body: '''<html>
+                            <body>
+                                <p>Build Status: ${BUILD_STATUS}</p>
+                                <p>Build Number: ${BUILD_NUMBER}</p>
+                                <p>Check the <a href="${BUILD_URL}">console output</a>.</p>
+                            </body>
+                        </html>''',
+                to: 'thiha.min.sys@gmail.com',
+                from: 'thiha.min.sys@gmail.com',
+                replyTo: 'thiha.min.sys@gmail.com',
+                mimeType: 'text/html'
+                )
+            }
     }
 }
