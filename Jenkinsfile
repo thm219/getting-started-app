@@ -7,7 +7,7 @@ pipeline {
         image = "getting-node-js"
         docker_image = "thm007/getting-node-js"
         container_name = "node"
-        version_image = '2'
+        version_image = "2"
     }
 
     stages {
@@ -88,7 +88,7 @@ pipeline {
                                 <p>Check the <a href="${BUILD_URL}">console output</a>.</p>
                             </body>
                         </html>''',
-                to: 'thiha.min.sys@gmail.com;thm219007@gmail.com',
+                to: 'thiha.min.sys@gmail.com,thm219007@gmail.com',
                 from: 'thiha.min.sys@gmail.com',
                 replyTo: 'thiha.min.sys@gmail.com',
                 mimeType: 'text/html'
