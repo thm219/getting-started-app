@@ -12,6 +12,18 @@ pipeline {
 
     stages {
 
+        stage('Notify for Approval') {
+            steps {
+                script {
+                    // Send email notification
+                    mail (to: 'thm219007@gmail.com',
+						 subject: "Job '${env.JOB_BASE_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
+						 body: "Please go to console output of ${env.BUILD_URL} to approve or Reject.");
+					def userInput = input(id: 'userInput', message: 'Job A Failed do you want to build Job B?', ok: 'Yes')
+                }
+            }
+        }
+
         stage('SCM') {
             steps {
                 checkout scm
@@ -88,7 +100,7 @@ pipeline {
                                 <p>Check the <a href="${BUILD_URL}">console output</a>.</p>
                             </body>
                         </html>''',
-                to: 'thiha.min.sys@gmail.com,thm219007@gmail.com',
+                to: 'thiha.min.sys@gmail.com',
                 from: 'thiha.min.sys@gmail.com',
                 replyTo: 'thiha.min.sys@gmail.com',
                 mimeType: 'text/html'
