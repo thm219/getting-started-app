@@ -11,8 +11,7 @@ pipeline {
     }
 
     stages {
-
-        stage('Notify for Approval') {
+        tage('Notify for Approval') {
             steps {
                 script {
                     // Send email notification
@@ -23,7 +22,6 @@ pipeline {
                 }
             }
         }
-
         stage('SCM') {
             steps {
                 checkout scm
@@ -100,7 +98,7 @@ pipeline {
                                 <p>Check the <a href="${BUILD_URL}">console output</a>.</p>
                             </body>
                         </html>''',
-                to: 'thiha.min.sys@gmail.com',
+                to: 'thiha.min.sys@gmail.com,thm219007@gmail.com',
                 from: 'thiha.min.sys@gmail.com',
                 replyTo: 'thiha.min.sys@gmail.com',
                 mimeType: 'text/html'
