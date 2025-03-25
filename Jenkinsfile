@@ -45,7 +45,7 @@ pipeline {
                 sh '''
                   docker build -t ${image} .
                   echo "scan image by Trivy"
-                  sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy ${image}'
+                  docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy ${image}
                   docker run -d --name ${container_name} ${image}
                 '''
             }
