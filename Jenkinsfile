@@ -49,6 +49,12 @@ pipeline {
             }
         }
 
+        stage('scan_image') {
+            steps {
+                echo "scanned image by trivy"
+            }
+        }
+
         stage('test') {
             steps {
                 echo "test pipeline"
