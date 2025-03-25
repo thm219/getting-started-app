@@ -11,7 +11,7 @@ pipeline {
     }
 
     stages {
-        tage('Notify for Approval') {
+        stage('Notify for Approval') {
             steps {
                 script {
                     // Send email notification
