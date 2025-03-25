@@ -39,19 +39,15 @@ pipeline {
             }
         }
 
-        stage('build') {
+        stage('build and scan_image') {
             steps {
                 echo "build Pipeline"
                 sh '''
                   docker build -t ${image} .
+                  echo "scan image by Trivy"
+                  sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy ${image}'
                   docker run -d --name ${container_name} ${image}
                 '''
-            }
-        }
-
-        stage('scan_image') {
-            steps {
-                echo "scanned image by trivy"
             }
         }
 
