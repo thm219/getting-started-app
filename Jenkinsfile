@@ -68,9 +68,9 @@ pipeline {
                     script {
                     // Log in to Docker Hub
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'docker image tag ${image} ${docker_image}:${version_image}'
+                    sh 'docker image tag ${image} ${docker_image}:{version_image}'
                     // Push the image
-                    sh 'docker push ${docker_image}:${version_image}'
+                    sh 'docker push ${docker_image}:{version_image}'
                     }
                 }
             }
